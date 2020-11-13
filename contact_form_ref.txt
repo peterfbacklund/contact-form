@@ -68,17 +68,21 @@
         data-bind="value: requestQuestion"
       ></textarea>
     </label>
+    <!--
     <label
       >Attachments:
       <input type="file" />
     </label>
+    -->
   </div>
+  <!-- 
   <a data-bind="attr: {href: mail.link}, text: mail.link"></a>
   <br />
   <a
     target="blank"
     data-bind="attr: {href: mail.linkOWA}, text: mail.linkOWA"
   ></a>
+  -->
   <button
     type="button"
     target="blank"
@@ -107,5 +111,5 @@
 
 <script
   type="text/javascript"
-  src="../SiteAssets/contact_form/contact_form.js"
+  src="/sites/CGFS-GFS/Style Library/en-us/AMPAY/ContactForm/contact_form.js"
 ></script>
