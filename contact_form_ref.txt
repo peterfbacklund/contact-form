@@ -1,0 +1,111 @@
+<style>
+  #contact_form {
+    display: block;
+  }
+
+  label {
+    display: block;
+    padding: 5px 0px;
+    font-weight: bold;
+  }
+
+  input,
+  select,
+  textarea {
+    display: block;
+  }
+</style>
+
+<div class="contact_form">
+  <div id="form_input">
+    <label
+      >Request ID:
+      <input data-bind="value: requestId" type="text" />
+    </label>
+
+    <label
+      >Name:
+      <input data-bind="value: requestorName" type="text" />
+    </label>
+    <label
+      >Title:
+      <input data-bind="value: requestorTitle" type="text" />
+    </label>
+    <label
+      >Office Symbol:
+      <input data-bind="value: requestorOfficeSymbol" type="text" />
+    </label>
+
+    <label
+      >Telephone:
+      <input data-bind="value: requestorTelephone" type="text" />
+    </label>
+    <label
+      >Email:
+      <input data-bind="value: requestorEmail" type="text" />
+    </label>
+    <label
+      >Requestor Type:
+      <select
+        data-bind="value: requestorType, 
+      options: requestorTypeOpts,
+      optionsCaption: 'Select...'"
+      ></select>
+    </label>
+    <label
+      >Topic:
+      <select
+        data-bind="value: requestTopic, 
+      options: requestTopicOpts,
+      optionsCaption: 'Select...'"
+      ></select>
+    </label>
+    <label
+      >Question:
+      <textarea
+        cols="100"
+        rows="12"
+        data-bind="value: requestQuestion"
+      ></textarea>
+    </label>
+    <label
+      >Attachments:
+      <input type="file" />
+    </label>
+  </div>
+  <a data-bind="attr: {href: mail.link}, text: mail.link"></a>
+  <br />
+  <a
+    target="blank"
+    data-bind="attr: {href: mail.linkOWA}, text: mail.linkOWA"
+  ></a>
+  <button
+    type="button"
+    target="blank"
+    data-bind="click: $root.submitToOWA.bind(this)"
+  >
+    Submit via Outlook Web App
+  </button>
+  <button
+    type="button"
+    target="blank"
+    data-bind=" click: $root.submitToDesktop.bind(this)"
+  >
+    Submit via Outlook Desktop
+  </button>
+</div>
+
+<script
+  type="text/javascript"
+  src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.5.0.js"
+></script>
+
+<script
+  type="text/javascript"
+  src="https://code.jquery.com/jquery-3.5.1.min.js"
+></script>
+
+<script
+  type="text/javascript"
+  src="../SiteAssets/contact_form/contact_form.js"
+></script>
