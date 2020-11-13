@@ -62,33 +62,53 @@ function ContactViewModel() {
     }),
     linkOWA: ko.pureComputed(function () {
       return (
-        `https://outlook.live.com/mail/0/deeplink/compose?` +
+        `https://outlook.office.com/?path=/mail/action/compose&` +
         `to=${self.mail.to()}&cc=${self.mail.cc()}` +
         `&subject=${self.mail.subject()}&body=${self.mail.body()}`
       );
     }),
   };
 
+  this.validate = ko.pureComputed(function () {
+    if(!self.requestorType()){
+      alert('Contractor Type is required')
+      return false;
+    }
+    
+    if(!self.requestTopic()) {
+      alert('Topic is required')
+      return false;
+    }
+    
+    if(!self.requestQuestion()){
+      alert('Question is required')
+      return false;
+    }
+    return true;
+  })
+
   this.submitToOWA = function () {
-    window.open(self.mail.linkOWA());
-    self.requestConfirm();
+    if(self.validate()){
+      window.open(self.mail.linkOWA());
+      self.requestConfirm();
+    }
   };
 
   this.submitToDesktop = function () {
-    window.open(self.mail.link());
-    self.requestConfirm();
+    if(self.validate()){
+      window.open(self.mail.link());
+      self.requestConfirm();
+    }
   };
 
   this.requestConfirm = function () {
     if (
       window.confirm(
-        "Was your request template successfully created in outlook?"
+        "Your request should now open in Outlook. You must send the email to submit your request."
       )
     ) {
-      if (window.alert("You may now close this page.")) {
       }
     }
-  };
 }
 
 function getUserProperties() {
