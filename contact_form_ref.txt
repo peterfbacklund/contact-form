@@ -11,49 +11,67 @@
 
   input,
   select,
+  button,
   textarea {
     display: block;
+  }
+
+  .required {
+    color: red;
   }
 </style>
 
 <div class="contact_form">
   <div id="form_input">
     <label
-      >Request ID:
-      <input data-bind="value: requestId" type="text" />
-    </label>
-
-    <label
-      >Name:
+      >Name:<span class="required">*</span>
       <input data-bind="value: requestorName" type="text" />
     </label>
     <label
-      >Title:
+      >Title:<span class="required">*</span>
       <input data-bind="value: requestorTitle" type="text" />
     </label>
     <label
-      >Office Symbol:
+      >Office Symbol:<span class="required">*</span>
       <input data-bind="value: requestorOfficeSymbol" type="text" />
     </label>
 
     <label
-      >Telephone:
+      >Telephone:<span class="required">*</span>
       <input data-bind="value: requestorTelephone" type="text" />
     </label>
     <label
-      >Email:
+      >Email:<span class="required">*</span>
       <input data-bind="value: requestorEmail" type="text" />
     </label>
     <label
-      >Requestor Type:
+      >Requestor Type:<span class="required">*</span>
       <select
         data-bind="value: requestorType, 
       options: requestorTypeOpts,
       optionsCaption: 'Select...'"
       ></select>
     </label>
+    <!-- ko if: requestorIsEmployeeSpecific -->
     <label
-      >Topic:
+      >SSN (Last 4 Digits):<span class="required">*</span>
+      <input
+        type="number"
+        max="9999"
+        data-bind="value: requestorFour"
+      ></input>
+    </label>  
+    <p>- OR -</p>  
+    <label
+      >Employee Badge #:<span class="required">*</span>
+      <input
+        type="text"
+        data-bind="value: requestorBadgeNum"
+      ></input>
+    </label>    
+    <!-- /ko -->
+    <label
+      >Topic:<span class="required">*</span>
       <select
         data-bind="value: requestTopic, 
       options: requestTopicOpts,
@@ -61,7 +79,7 @@
       ></select>
     </label>
     <label
-      >Question:
+      >Question:<span class="required">*</span>
       <textarea
         cols="100"
         rows="12"
@@ -74,6 +92,14 @@
       <input type="file" />
     </label>
     -->
+    <label
+      >How are you accessing this page:<span class="required">*</span>
+      <select
+        data-bind="value: requestAccess, 
+      options: requestAccessOpts,
+      optionsCaption: 'Select...'"
+      ></select>
+    </label>
   </div>
   <!-- 
   <a data-bind="attr: {href: mail.link}, text: mail.link"></a>
@@ -83,6 +109,10 @@
     data-bind="attr: {href: mail.linkOWA}, text: mail.linkOWA"
   ></a>
   -->
+  <!-- ko if: mail.to() -->
+  <p> This request will be sent to: <span data-bind="text: mail.to()"></span></p>
+  <!-- /ko -->
+  <!-- ko if: requestAccess() == 'GO Browser' -->
   <button
     type="button"
     target="blank"
@@ -90,6 +120,8 @@
   >
     Submit via Outlook Web App
   </button>
+  <!-- /ko -->
+  <!-- ko if: requestAccess() == 'OpenNet/GO Virtual/EMD' -->
   <button
     type="button"
     target="blank"
@@ -97,6 +129,7 @@
   >
     Submit via Outlook Desktop
   </button>
+  <!-- /ko -->
 </div>
 
 <script
